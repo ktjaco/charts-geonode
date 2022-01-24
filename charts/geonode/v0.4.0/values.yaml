@@ -7,10 +7,11 @@ image:
 global:
   # This name is used for service interconnection between subcharts and parent charts.
   nameOverride: geonode
-  existingSecret: |
+  existingSecret: ""
   sharedSecretName: geonode-shared-secret
   # generic values
   geonodeSiteName: geonode
+  geonodeAnyHost: true
   geonodeSiteURL: |
     http://{{- .Values.global.geonodeSiteName -}}/
   geonodeCommand: |
@@ -19,7 +20,7 @@ global:
     ["uwsgi","--chdir=/spcgeonode","--module=geonode.wsgi","--socket=:8000","--http=0.0.0.0:8080","--processes=5","--buffer-size=8192"]
   adminUser: admin
   adminPassword:
-    value:
+    value: geonode
     valueFrom:
       secretKeyRef:
         name:
@@ -33,7 +34,7 @@ global:
         key: django-secret
   databaseUsername: geonode
   databasePassword:
-    value:
+    value: geonode
     valueFrom:
       secretKeyRef:
         name:
@@ -51,14 +52,14 @@ global:
   # geoserver specific values
   geoserverAdminUser: admin
   geoserverAdminPassword:
-    value:
+    value: geoserver
     valueFrom:
       secretKeyRef:
         name:
         key: geoserver-password
   geodatabaseUsername: geonode_data
   geodatabasePassword:
-    value:
+    value: geonode
     valueFrom:
       secretKeyRef:
         name:
