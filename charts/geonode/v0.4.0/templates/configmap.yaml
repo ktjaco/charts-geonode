@@ -272,7 +272,7 @@ data:
     http {
         server {
             listen              80;
-            server_name       {{ if eq .Values.global.geonodeAnyHost true }} {{ .Values.global.geonodeSiteName }} www.{{ .Values.global.geonodeSiteName }} {{ include "geonode.fullname" . }} 127.0.0.1 nginx "" eyeryw {{ else }} _ {{ end }};
+            server_name         {{ if .Values.global.geonodeAnyHost }} _ {{ else }} {{ .Values.global.geonodeSiteName }} www.{{ .Values.global.geonodeSiteName }} {{ include "geonode.fullname" . }} 127.0.0.1 nginx {{ end }};
 
             include geonode.conf;
         }
